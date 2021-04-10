@@ -5,31 +5,62 @@ document.onkeydown = checkButton;
 
 function checkButton(event) {
 
+    let cubeRight = cube.x + cube.width; 
+    let cubeBottom = cube.y + cube.height;
+
+    let mapRight = map.x + map.width;
+    let mapBottom = map.y + map.height; 
+
     if (event.keyCode === 37) {
         console.log("ArrowLeft");
-        if (cube.x > 0) {
-            cube.x -= cube.step;
-        } 
+        if (map.x < cube.x) {
+            if ((cube.x - map.x) < cube.step) {
+                cube.x -= cube.x - map.x;
+            }
+            
+            else {
+                cube.x -= cube.step;
+            }
+        }
     } 
 
     if (event.keyCode === 38) {
         console.log("ArrowUp");
-        if (cube.y > 0) {
-            cube.y -= cube.step;
+        if (map.y < cube.y) {
+            if ((cube.y - map.y) < cube.step) {
+                cube.y -= cube.y - map.y;
+            }
+            
+            else {
+                cube.y -= cube.step;
+            }
         } 
     }
     
     if (event.keyCode === 39) {
         console.log("ArrowRight");
-        if ((cube.x + cube.width) < map.width) {
-            cube.x += cube.step; 
+        if (cubeRight < mapRight) {
+            if ((mapRight - cubeRight) < cube.step) {
+                cube.x += mapRight - cubeRight;
+            }
+            
+            else {
+                cube.x += cube.step;
+            }
         }
-    }
+    } 
+    
 
     if (event.keyCode === 40) {
         console.log("ArrowDown");
-        if ((cube.y + cube.height) < map.height) {
-            cube.y += cube.step; 
+        if (cubeBottom < mapBottom) {
+            if ((mapBottom - cubeBottom) < cube.step) {
+                cube.y += mapBottom - cubeBottom;
+            }
+            
+            else {
+                cube.y += cube.step;
+            }
         }
     }
 
@@ -54,4 +85,24 @@ function renderMap(map) {
     document.getElementById("map").style.width = map.width + "px";
     document.getElementById("map").style.height = map.height + "px";
     document.getElementById("map").style.backgroundColor = map.color;
+}
+
+function spawnCube(map, cube) {
+
+    let mapMinX = map.x;
+    let mapMaxX = map.x + map.width - cube.width;
+
+    let mapMinY = map.y;
+    let mapMaxY = map.y + map.height - cube.height;
+
+    
+    cube.x = Math.round(
+        mapMinX +
+        Math.random() * (mapMaxX - mapMinX)
+        );
+    cube.y = Math.round(
+        mapMinY +
+        Math.random() * (mapMaxY - mapMinY)
+        );
+    return cube; 
 }

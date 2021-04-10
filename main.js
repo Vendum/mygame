@@ -1,7 +1,7 @@
 let cube = {
     id: "cube",
-    x: 0,
-    y: 0,
+    x: 300,
+    y: 300,
     width: 56,
     height: 56,
     transition: .25,
@@ -11,13 +11,13 @@ let cube = {
 }
 
 let map = {
-    width: 500,
-    height: 500,
-    x: 0,
-    y: 0,
+    width: 370,
+    height: 370,
+    x: 70,
+    y: 70,
     color: "#f5f5f5",
     border: "#f1f1f1"
 }
 
-renderCube(cube); 
+renderCube((spawnCube(map, cube)), cube); 
 renderMap(map); 
